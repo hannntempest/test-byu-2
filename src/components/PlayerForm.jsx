@@ -1,15 +1,24 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const PlayerForm = () => {
   const navigate = useNavigate();
+  const { playerId } = useParams(); // Mendapatkan ID pemain dari URL
+  const playerNumber = parseInt(playerId, 10); // Konversi ke angka
 
+  // Hooks harus selalu dipanggil di awal fungsi
   const [formData, setFormData] = useState({
     playerName: "",
     phoneNumber: "",
     email: "",
     birthDate: "",
   });
+
+  // Validasi playerId setelah semua hooks
+  if (isNaN(playerNumber) || playerNumber < 1 || playerNumber > 12) {
+    navigate("/"); // Arahkan ke halaman awal jika playerId tidak valid
+    return null; // Jangan render apapun
+  }
 
   const isFormValid = Object.values(formData).every((value) => value.trim() !== "");
 
@@ -21,63 +30,36 @@ const PlayerForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
     if (isFormValid) {
-      navigate("/success");
+      if (playerNumber < 12) {
+        navigate(`/playerform/${playerNumber + 1}`);
+      } else {
+        navigate("/success");
+      }
     }
   };
 
   const handleBack = () => {
-    navigate("/");
+    if (playerNumber > 1) {
+      navigate(`/playerform/${playerNumber - 1}`);
+    } else {
+      navigate("/");
+    }
   };
 
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6">
-        {/* Header Section */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-xl font-semibold">Banjarmasin</h1>
-            <p className="text-sm text-gray-500">11 - 14 Juli 2024</p>
-            <p className="text-sm text-gray-500 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 2a10 10 0 110 20 10 10 0 010-20zm0 3v4l3 3" />
-              </svg>
-              GOR PANGSUMA
-            </p>
-          </div>
-          <div className="w-16">
-            <img src="/telkom.png" alt="Logo" className="w-full" />
-          </div>
-        </div>
-
-        {/* Progress Bar */}
-        <div className="flex items-center mb-6">
-          <div className="flex items-center">
-            <div className="w-6 h-6 bg-blue-500 text-white flex items-center justify-center rounded-full text-xs font-bold">✓</div>
-            <span className="ml-2 text-sm font-medium text-blue-500">Informasi Tim</span>
-          </div>
-          <div className="flex-grow h-1 bg-blue-500 mx-2"></div>
-          <div className="flex items-center">
-            <div className="w-6 h-6 bg-blue-500 text-white flex items-center justify-center rounded-full text-xs font-bold">1</div>
-            <span className="ml-2 text-sm font-medium text-blue-500">Pemain 1</span>
-          </div>
-          <div className="flex-grow h-1 bg-gray-300 mx-2"></div>
-          <div className="flex items-center">
-            <div className="w-6 h-6 bg-gray-300 text-gray-600 flex items-center justify-center rounded-full text-xs font-bold">2</div>
-            <span className="ml-2 text-sm text-gray-500">Pemain 2</span>
-          </div>
-        </div>
-
         {/* Form Section */}
         <div>
-          <h2 className="text-lg font-semibold mb-4">Masukan Informasi Pemain 1</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <h2 className="text-lg font-semibold mb-4">Masukan Informasi Pemain {playerNumber}</h2>
+          <form onSubmit={handleNext} className="space-y-4">
             {/* Nama Pemain */}
             <div>
               <label htmlFor="playerName" className="block text-sm font-medium text-gray-700">
-                Nama Pemain 1
+                Nama Pemain {playerNumber}
               </label>
               <input
                 type="text"
@@ -85,7 +67,7 @@ const PlayerForm = () => {
                 name="playerName"
                 value={formData.playerName}
                 onChange={handleChange}
-                placeholder="Masukin nama pemain 1"
+                placeholder={`Masukan nama pemain ${playerNumber}`}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 required
               />
@@ -102,7 +84,7 @@ const PlayerForm = () => {
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleChange}
-                placeholder="Masukin nomor telepon pemain 1"
+                placeholder={`Masukan nomor telepon pemain ${playerNumber}`}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 required
               />
@@ -119,7 +101,7 @@ const PlayerForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Masukin alamat email pemain 1"
+                placeholder={`Masukan alamat email pemain ${playerNumber}`}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 required
               />

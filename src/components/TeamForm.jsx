@@ -31,7 +31,8 @@ const TeamForm = () => {
     }
 
     console.log("Form submitted:", formData);
-    navigate("/playerform");
+    // Navigasi ke pemain pertama setelah form tim selesai
+    navigate("/playerform/1");
   };
 
   const handleBack = () => {
@@ -41,36 +42,6 @@ const TeamForm = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl p-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-xl font-bold text-gray-800">Banjarmasin</h1>
-          <p className="text-sm text-gray-500">11 - 14 Juli 2024</p>
-          <p className="text-sm text-gray-500 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2a10 10 0 110 20 10 10 0 010-20zm0 3v4l3 3" />
-            </svg>
-            GOR PANGSUMA
-          </p>
-        </div>
-
-        {/* Progress Bar */}
-        <div className="flex items-center mb-8">
-          <div className="flex items-center">
-            <div className="w-6 h-6 bg-orange-500 text-white flex items-center justify-center rounded-full text-xs font-bold">✓</div>
-            <span className="ml-2 text-sm font-medium text-orange-500">Informasi Tim</span>
-          </div>
-          <div className="flex-grow h-1 bg-orange-500 mx-2"></div>
-          <div className="flex items-center">
-            <div className="w-6 h-6 bg-gray-300 text-gray-600 flex items-center justify-center rounded-full text-xs font-bold">1</div>
-            <span className="ml-2 text-sm text-gray-500">Pemain 1</span>
-          </div>
-          <div className="flex-grow h-1 bg-gray-300 mx-2"></div>
-          <div className="flex items-center">
-            <div className="w-6 h-6 bg-gray-300 text-gray-600 flex items-center justify-center rounded-full text-xs font-bold">2</div>
-            <span className="ml-2 text-sm text-gray-500">Pemain 2</span>
-          </div>
-        </div>
-
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Input Fields */}
@@ -86,6 +57,7 @@ const TeamForm = () => {
               onChange={handleChange}
               placeholder="Masukin nama pelatih tim"
               className="mt-2 block w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              required
             />
           </div>
 
@@ -101,6 +73,7 @@ const TeamForm = () => {
               onChange={handleChange}
               placeholder="Masukin nomor pelatih"
               className="mt-2 block w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              required
             />
           </div>
 
@@ -116,6 +89,7 @@ const TeamForm = () => {
               onChange={handleChange}
               placeholder="Masukin nama official 1"
               className="mt-2 block w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              required
             />
           </div>
 
@@ -131,6 +105,7 @@ const TeamForm = () => {
               onChange={handleChange}
               placeholder="Masukin nomor official 1"
               className="mt-2 block w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              required
             />
           </div>
 
@@ -149,7 +124,7 @@ const TeamForm = () => {
                 </div>
               )}
               <label htmlFor="teamPhoto" className="mt-4 cursor-pointer inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600">
-                <input id="teamPhoto" name="teamPhoto" type="file" className="hidden" onChange={handleFileChange} accept="image/*" />
+                <input id="teamPhoto" name="teamPhoto" type="file" className="hidden" onChange={handleFileChange} accept="image/*" required />
                 Upload
               </label>
             </div>

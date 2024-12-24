@@ -1,25 +1,65 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-//import Header from "../src/components/Header.jsx";
-import TeamForm from "../src/components/TeamForm.jsx";
-import Success from "../src/components/Success.jsx";
-import PlayerForm from "../src/components/PlayerForm.jsx";
-import "./App.css";
+import TopNavbar from "./components/TopNavbar";
+import Banner from "./components/Banner";
+import Stepper from "./components/Stepper";
+import TeamForm from "./components/TeamForm";
+import PlayerForm from "./components/PlayerForm";
+import Success from "./components/Success";
 
-function App() {
+const App = () => {
   return (
     <Router>
-      <div className="container">
-        <main className="content">
+      <div className="min-h-screen bg-gray-100">
+        {/* Top Navbar */}
+        <TopNavbar />
+
+        {/* Page Content */}
+        <div className="p-4">
           <Routes>
-            <Route path="/" element={<TeamForm />} />
-            <Route path="/success" element={<Success />} />
-            <Route path="/playerform" element={<PlayerForm />} />
+            {/* Halaman Team Form */}
+            <Route
+              path="/"
+              element={
+                <div>
+                  <Banner />
+                  <Stepper currentStep={1} totalSteps={13} />
+                  <TeamForm />
+                </div>
+              }
+            />
+
+            {/* Halaman Player Form */}
+            {Array.from({ length: 12 }).map((_, index) => (
+              <Route
+                key={index + 1}
+                path={`/playerform/${index + 1}`}
+                element={
+                  <div>
+                    <Banner />
+                    <Stepper currentStep={index + 2} totalSteps={13} />
+                    <PlayerForm />
+                  </div>
+                }
+              />
+            ))}
+
+            {/* Halaman Success */}
+            <Route
+              path="/success"
+              element={
+                <div>
+                  <Banner />
+                  <Stepper currentStep={13} totalSteps={13} />
+                  <Success />
+                </div>
+              }
+            />
           </Routes>
-        </main>
+        </div>
       </div>
     </Router>
   );
-}
+};
 
 export default App;
