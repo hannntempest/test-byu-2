@@ -50,7 +50,7 @@ const PlayerForm = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+    <div className="bg-white-100 min-h-screen flex justify-center items-center">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6">
         {/* Form Section */}
         <div>

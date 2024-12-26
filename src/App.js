@@ -6,14 +6,14 @@ import Stepper from "./components/Stepper";
 import TeamForm from "./components/TeamForm";
 import PlayerForm from "./components/PlayerForm";
 import Success from "./components/Success";
+import TeamHeader from "./components/TeamHeader";
 
 const App = () => {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen bg-white-100">
         {/* Top Navbar */}
         <TopNavbar />
-
         {/* Page Content */}
         <div className="p-4">
           <Routes>
@@ -24,6 +24,7 @@ const App = () => {
                 <div>
                   <Banner />
                   <Stepper currentStep={1} totalSteps={13} />
+                  <TeamHeader />
                   <TeamForm />
                 </div>
               }
@@ -38,6 +39,7 @@ const App = () => {
                   <div>
                     <Banner />
                     <Stepper currentStep={index + 2} totalSteps={13} />
+                    <TeamHeader />
                     <PlayerForm />
                   </div>
                 }

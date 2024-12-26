@@ -40,7 +40,7 @@ const TeamForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
+    <div className="min-h-screen bg-white-100 flex justify-center items-center">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl p-8">
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
